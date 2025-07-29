@@ -39,23 +39,6 @@ The dataset (`spotify-2023.csv`) contains 953 songs with features like:
   3. Use the KNN model to find the closest songs (neighbors).
   4. Return the top N recommendations, excluding the input song itself.
 
-#### Example Recommendation Function
-
-```python
-def recommend_songs(song_name, df, df_scaled, knn, top_n=5):
-    # Find the song
-    song_indices = df[df['track_name'].str.lower() == song_name.lower()].index
-    if len(song_indices) == 0:
-        return "Song not found in the dataset."
-    song_index = song_indices[0]
-    song_features = df_scaled.iloc[song_index].values.reshape(1, -1)
-    distances, indices = knn.kneighbors(song_features)
-    recommended_indices = indices[0][1:top_n+1]
-    output_columns = ['track_name', 'artist(s)_name', 'danceability_%', 'energy_%', 'valence_%']
-    recommendations = df.iloc[recommended_indices][output_columns]
-    return recommendations
-```
-
 ## Mathematical Formula
 
 - **Standardization:** As above.
